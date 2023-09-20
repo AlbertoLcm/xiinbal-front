@@ -1,0 +1,56 @@
+.home__color__container {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    padding-bottom: 1rem;
+    align-items: self-end;
+    box-sizing: border-box;
+    justify-content: center;
+    background: linear-gradient(0.25turn,  #E99B03,#D53F04);
+}
+.home__white__container {
+    gap: 1rem;
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    background: #F3F3F3;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.home__white__container input {
+    width: 50%;
+    border: none;
+    height: 3rem;
+    border: none;
+    font-size: 2rem;
+    text-align: center;
+    border-radius: 1rem;
+    padding: 0 1rem 0 1rem;
+    background-color: #FCBB7C;
+}
+.home__white__container input:focus {
+    outline: none;
+}
+
+.home__logo__image {
+    width: 8em;
+    height: 10em;
+}
+.home__arrow__image {
+    width: 4rem;
+    height: 4rem;
+}
+.home_dote_line {
+    width: 100%;
+    bottom: 47%;
+    height: 7rem;
+    position: absolute;
+}
+.home__square__nav {
+    top: 1rem;
+    right: 1rem;
+    width: 3rem;
+    height: 3rem;
+    position: absolute;
+}
