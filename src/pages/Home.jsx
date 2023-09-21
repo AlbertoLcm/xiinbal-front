@@ -114,7 +114,7 @@ export default function Home() {
                     }}
                   >
                     <div className="cuerpo">
-                      <img src={plan[0].foto} width={100} height={100} alt="muestra" />
+                      <img src={plan[0].photoUrl} width={100} height={100} alt="muestra" />
                     </div>
                     <div className="titulo">{plan[0].name}</div>
                     <p>
