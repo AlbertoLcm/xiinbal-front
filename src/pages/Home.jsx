@@ -4,13 +4,24 @@ import arrow from '../assets/home/arrow_square_down.svg'
 import dotLine from '../assets/home/dot_line_track.svg'
 import squareNav from '../assets/home/square_nav.svg'
 import '../css/Home/Home.css'
-import { useGlobal } from "../helpers/global/GlobalProvider";
-import LogInOrSignUp from "../components/Login/logInOrSignUp";
+import instance from "../api/instance";
 
 export default function Home() {
-    const { searchText, setSearchText } = useGlobal();
-    const handleInput = (input) => {
-        setSearchText(input.target.value)
+    const [searchText, setSearchText] = useState(null);
+    
+    const handleInput = (e) => setSearchText(e.target.value);
+
+    const sendForm = (e) => {
+        e.preventDefault();
+
+        instance.post('/plans/generate', {searchText})
+        .then(res => {
+            alert(res.data.message);
+            console.log(res.data);
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }
     const [showForms, setShowForms] = useState(false);
     const toggleForms = () => setShowForms(!showForms)
@@ -28,7 +39,9 @@ export default function Home() {
             <div className="home__white__container" >
                 <p>No salgas de casa sin Xíinbal, tu especialista en planes.</p>
                 <p>Buen@s días/tardes/noches</p>
-                <input type="text" value={searchText} onChange={handleInput} />
+                <form onSubmit={sendForm}>
+                    <input type="text" value={searchText} onChange={handleInput} />
+                </form>
                 <img src={arrow} alt="Xiinbal" height={100} width={100} className="home__arrow__image" />
             </div>
         </>
