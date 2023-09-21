@@ -14,25 +14,17 @@ import Swal from 'sweetalert2'
 import withReactContent from "sweetalert2-react-content";
 
 export default function Home() {
-  const [searchText, setSearchText] = useState(null);
-  const [plans, setPlans] = useState(null);
+  const searchSaved = localStorage.getItem("search");
+  const [searchText, setSearchText] = useState(searchSaved !== null ? searchSaved : "");
+  const MySwal = withReactContent(Swal)
   const navigate = useNavigate();
   const { selectPlan } = useGlobal();
-  const MySwal = withReactContent(Swal);
 
+  const plansSaved = localStorage.getItem("plans");
+  const [plans, setPlans] = useState(plansSaved ? JSON.parse(plansSaved) : []);
 
   const handleInput = (e) => setSearchText(e.target.value);
-
-  useEffect(() => {
-    localStorage.setItem("plans", JSON.stringify(plans));
-  }, [plans]);
-
-  useEffect(() => {
-    let plans = localStorage.getItem("plans");
-    plans = JSON.parse(plans);
-    if (plans) setPlans(plans);
-  }, []);
-
+  
   useEffect(() => {
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -43,6 +35,11 @@ export default function Home() {
       }
     );
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("plans", JSON.stringify(plans));
+    localStorage.setItem("search", searchText);
+  }, [plans]);
 
   const sendForm = (e) => {
     e.preventDefault();
@@ -132,15 +129,10 @@ export default function Home() {
                     }}
                   >
                     <div className="cuerpo">
-                      <img src={plan[0].foto} width={100} height={100} alt="Xiinbal" className="plans__card__image" />
+                      <img src={plan[0].photoUrl} width={100} height={100} alt="Xiinbal" className="plans__card__image" />
                     </div>
                     <div className="titulo">{plan[0].name}</div>
-                    <p>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Recusandae rerum minima, numquam, ratione quia provident
-                      optio quis corrupti ab neque, vitae accusamus ipsa eveniet
-                      quaerat molestiae nobis qui nihil blanditiis?
-                    </p>
+                    <p>{plan[0].vicinity}</p>
                   </div>
                 )
             )}

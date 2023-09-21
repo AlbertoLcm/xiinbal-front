@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import { useGlobal } from "../helpers/global/GlobalProvider";
 import "../css/OnePlan.css";
+import "../css/Home/Home.css";
+import "../css/Planes.css";
 
 const containerStyle = {
   width: "100%",
@@ -35,15 +37,28 @@ function OnePlan() {
     console.log(planSelected);
   }, []);
 
+  const sendForm = (e) => {
+    e.preventDefault();
+  }
+
+  const searchSaved = localStorage.getItem("search");
+  const [searchText, setSearchText] = useState(searchSaved !== null ? searchSaved : "");
+
+  const handleInput = (e) => setSearchText(e.target.value);
+
   if (!isLoaded) return <div>Loading...</div>;
 
   return (
     <section className="page-plan">
-      <div className="content">
-        <ul>
+      <div className="page-plan__content">
+        <form onSubmit={sendForm} className="page-plan__search">
+          <input type="text" value={searchText} onChange={handleInput} placeholder="¿Qué más deseas hacer hoy?" />
+        </form>
+        <h2>Lista de lugares</h2>
+        <ul className="page-plan__content__container">
           {planSelected &&
             planSelected.map((plan, index) => (
-              <li key={index}>
+              <li key={index} className="page-plan__content__container__item">
                 <h3>{plan.name}</h3>
                 <p>{plan.description}</p>
               </li>
@@ -55,9 +70,12 @@ function OnePlan() {
           {planSelected &&
             planSelected.map((plan) => (
               <MarkerF
-                key={plan.place_id} 
-                position={{lat: plan.geometry.location.lat, lng: plan.geometry.location.lng }} 
-                />
+                key={plan.place_id}
+                position={{
+                  lat: plan.geometry.location.lat,
+                  lng: plan.geometry.location.lng,
+                }}
+              />
             ))}
         </GoogleMap>
       </div>

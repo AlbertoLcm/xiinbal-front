@@ -6,7 +6,11 @@ const GlobalContext = createContext();
 
 export default function GlobalProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [planSelected, setPlanSelected] = useState(null);
+
+  const planSelectedSaved = localStorage.getItem("planSelected");
+  const [planSelected, setPlanSelected] = useState(
+    planSelectedSaved ? JSON.parse(planSelectedSaved) : []
+  );
 
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -35,8 +39,7 @@ export default function GlobalProvider({ children }) {
       alert("Bienvenido", `Hola ${user.name}`);
       return navigate("/");
     } catch (error) {
-        console.log(error);
-        alert("Error al iniciar sesión", "Intenta de nuevo más tarde");
+        alert(error.response.data.message);
     }
   };
 
@@ -47,7 +50,7 @@ export default function GlobalProvider({ children }) {
     navigate("/");
   };
 
-  const signup = async ({ email, password, name, edad }, setErrors) => {
+  const signup = async ({ email, password, name, edad }) => {
     try {
       const response = await instance.post("/auth/signup", {
         email,
