@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import fullLogo from '../assets/logos/Xiinbal_full_logo.png'
-import arrow from '../assets/home/arrow_square_down.svg'
-import dotLine from '../assets/home/dot_line_track.svg'
-import squareNav from '../assets/home/square_nav.svg'
-import '../css/Home/Home.css'
+import '../css/Home/Home.css';
 import instance from "../api/instance";
+import squareNav from '../assets/home/square_nav.svg';
+import dotLine from '../assets/home/dot_line_track.svg';
+import arrow from '../assets/home/arrow_square_down.svg';
+import fullLogo from '../assets/logos/Xiinbal_full_logo.png';
+import LogInOrSignUp from "../components/Login/logInOrSignUp";
 
 export default function Home() {
     const [searchText, setSearchText] = useState(null);
