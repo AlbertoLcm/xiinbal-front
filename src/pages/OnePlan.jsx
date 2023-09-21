@@ -41,7 +41,8 @@ function OnePlan() {
     e.preventDefault();
   }
 
-  const [searchText, setSearchText] = useState(null);
+  const searchSaved = localStorage.getItem("search");
+  const [searchText, setSearchText] = useState(searchSaved !== null ? searchSaved : "");
 
   const handleInput = (e) => setSearchText(e.target.value);
 

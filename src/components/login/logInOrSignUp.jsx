@@ -29,7 +29,7 @@ export default function LogInOrSignUp({ close }) {
             const { email, password } = datos;
             await actionLogin({ email, password });
         } catch (error) {
-            alert("Error al iniciar sesión", "Intenta de nuevo más tarde");
+            alert(error.response.data.message);
         }
     };
 
@@ -39,7 +39,7 @@ export default function LogInOrSignUp({ close }) {
             const { email, password, name, edad } = datos;
             await signup({ email, password, name, edad });
         } catch (error) {
-            alert("Error al iniciar sesión", "Intenta de nuevo más tarde");
+            alert(error.response.data.message);
         }
     }
 
