@@ -9,12 +9,17 @@ import LogInOrSignUp from "../components/Login/logInOrSignUp";
 import "../css/Planes.css";
 import { useNavigate } from "react-router-dom";
 import { useGlobal } from "../helpers/global/GlobalProvider";
+import Loading1 from "../components/loading/Loading";
+import Swal from 'sweetalert2'
+import withReactContent from "sweetalert2-react-content";
 
 export default function Home() {
   const [searchText, setSearchText] = useState(null);
   const [plans, setPlans] = useState(null);
   const navigate = useNavigate();
   const { selectPlan } = useGlobal();
+  const MySwal = withReactContent(Swal);
+
 
   const handleInput = (e) => setSearchText(e.target.value);
 
@@ -41,25 +46,38 @@ export default function Home() {
 
   const sendForm = (e) => {
     e.preventDefault();
-
+    setShowLoading(true)
     instance
       .post("/plans/generate", { searchText })
       .then((res) => {
-        alert(res.data.message);
+        MySwal.fire({
+            title: <strong>{res.data.message}</strong>,
+            icon: 'success',
+            background: "#FCBB7C",
+            timer: 2000
+        })
         setPlans(res.data.data);
-        console.log(res.data.data);
+        setShowLoading(false)
       })
       .catch((err) => {
-        console.log(err);
+        MySwal.fire({
+            title: <strong>Algo salio mal, intentalo mas tarde</strong>,
+            icon: 'error',
+            background: "#FCBB7C",
+            timer: 1200
+        })
+        setShowLoading(false)
       });
   };
 
   const [showForms, setShowForms] = useState(false);
   const toggleForms = () => setShowForms(!showForms);
+  const [showLoading, setShowLoading] = useState(false);
 
   return (
     <>
       {showForms && <LogInOrSignUp close={toggleForms} />}
+      {showLoading && <Loading1 /> }
       <img
         src={squareNav}
         alt="Xiinbal"
@@ -88,7 +106,7 @@ export default function Home() {
         <p>No salgas de casa sin Xíinbal, tu especialista en planes.</p>
         <h2>¿Qué deseas realizar el dia de hoy?</h2>
         <form onSubmit={sendForm} className="search">
-          <input type="text" value={searchText} onChange={handleInput} />
+          <input type="text" value={searchText} onChange={handleInput} disabled={showLoading} />
         </form>
         <img
           src={arrow}
@@ -114,7 +132,7 @@ export default function Home() {
                     }}
                   >
                     <div className="cuerpo">
-                      <img src={plan[0].foto} width={100} height={100} alt="muestra" />
+                      <img src={plan[0].foto} width={100} height={100} alt="Xiinbal" className="plans__card__image" />
                     </div>
                     <div className="titulo">{plan[0].name}</div>
                     <p>

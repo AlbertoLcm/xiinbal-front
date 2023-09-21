@@ -61,7 +61,7 @@
 .cuerpo{
     height: 300px;
 }
-img{
+.plans__card__image{
     object-fit: cover;
     width: 100%;
     height: 100%;

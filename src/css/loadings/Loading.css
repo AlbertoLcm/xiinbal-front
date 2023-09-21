@@ -1,0 +1,64 @@
+.loading__general__container {
+    top: 0;
+    left: 0;
+    z-index: 9;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    background-color: #00000050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes spinnerAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+@keyframes fillBar {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+  .spinner {
+    width: 5rem;
+    height: 5rem;
+    border: 10px solid #FCBB7C; /* Light grey */
+    border-top: 10px solid #b3865a; /* Black */
+    border-radius: 50%;
+    animation: spinnerAnimation 1.5s linear infinite;
+  }
+
+.square__loading {
+    height: 10rem;
+    width: 40%;
+    background: #FCBB7C;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.loading__square__text {
+    font-size: 3rem;
+}
+.loading__square__bar{
+    border: #000 solid .5rem;
+    border-radius: 1rem;
+    padding: .3rem;
+    width: 80%;
+}
+.loading__square__bar__fill {
+    height: .7rem;
+    background-color: #000;
+    border-radius: .7rem;
+    animation: fillBar 1.5s linear infinite;
+}
