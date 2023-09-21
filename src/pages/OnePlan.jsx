@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
 import { useGlobal } from "../helpers/global/GlobalProvider";
 import "../css/OnePlan.css";
 
@@ -32,6 +32,7 @@ function OnePlan() {
         console.log(err);
       }
     );
+    console.log(planSelected);
   }, []);
 
   if (!isLoaded) return <div>Loading...</div>;
@@ -53,7 +54,10 @@ function OnePlan() {
         <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={13}>
           {planSelected &&
             planSelected.map((plan) => (
-              <Marker key={plan.place_id} position={plan.geometry.location} />
+              <MarkerF
+                key={plan.place_id} 
+                position={{lat: plan.geometry.location.lat, lng: plan.geometry.location.lng }} 
+                />
             ))}
         </GoogleMap>
       </div>
