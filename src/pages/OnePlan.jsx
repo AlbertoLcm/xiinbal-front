@@ -66,7 +66,7 @@ function OnePlan() {
         </ul>
       </div>
       <div className="map">
-        <GoogleMap mapContainerStyle={containerStyle} center={center} zoom={13}>
+        <GoogleMap mapContainerStyle={containerStyle} center={planSelected[0].geometry.location} zoom={13}>
           {planSelected &&
             planSelected.map((plan) => (
               <MarkerF

@@ -11,6 +11,7 @@
 
 .page-plan__content {
   padding: 2rem;
+  box-sizing: border-box;
 }
 
 .page-plan__content__container {
@@ -31,12 +32,12 @@
 }
 
 .page-plan__search {
-  width: 100%;
   margin-bottom: 1rem;
 }
 .page-plan__search input {
   width: 100%;
   padding: 1rem;
+  box-sizing: border-box;
   font-size: 1rem;
   border-radius: 1rem;
   background-color: #FCBB7C;
